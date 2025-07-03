@@ -30,6 +30,33 @@ export const Default: Story<DropdownProps> = (args) => {
   )
 }
 
+export const WithButtonProps: Story<DropdownProps> = (args) => {
+  return (
+    <div className="my-32">
+      <Dropdown {...args}>
+        <Dropdown.Toggle
+          buttonProps={{
+            color: 'primary',
+            variant: 'outline',
+            size: 'lg',
+            startIcon: <span>🚀</span>,
+            endIcon: <span>⬇️</span>,
+            wide: true,
+            glass: true,
+          }}
+        >
+          Custom Button
+        </Dropdown.Toggle>
+        <Dropdown.Menu className="w-52">
+          <Dropdown.Item>Item 1</Dropdown.Item>
+          <Dropdown.Item>Item 2</Dropdown.Item>
+          <Dropdown.Item>Item 3</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+    </div>
+  )
+}
+
 export const AsCard: Story<DropdownProps> = (args) => {
   return (
     <div className="my-32">
@@ -60,7 +87,13 @@ export const InNavbar: Story<DropdownProps> = ({ dataTheme, ...args }) => {
           Button
         </Button>
         <Dropdown {...args} dataTheme={dataTheme}>
-          <Dropdown.Toggle className="btn btn-ghost rounded-btn" button={false}>
+          <Dropdown.Toggle
+            button={false}
+            buttonProps={{
+              color: 'ghost',
+              className: 'btn-ghost rounded-btn',
+            }}
+          >
             Dropdown
           </Dropdown.Toggle>
           <Dropdown.Menu className="w-52 mt-4">
@@ -83,7 +116,12 @@ export const Helper: Story<DropdownProps> = (args) => {
       <Dropdown {...args}>
         <Dropdown.Toggle
           button={false}
-          className="btn btn-circle btn-ghost btn-xs text-info"
+          buttonProps={{
+            color: 'ghost',
+            size: 'xs',
+            shape: 'circle',
+            className: 'text-info',
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
