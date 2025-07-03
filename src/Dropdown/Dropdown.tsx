@@ -4,12 +4,11 @@ import { twMerge } from 'tailwind-merge'
 
 import { IComponentBaseProps } from '../types'
 
-import DropdownDetails from './DropdownDetails'
 import DropdownMenu from './DropdownMenu'
 import DropdownItem from './DropdownItem'
 import DropdownToggle from './DropdownToggle'
 
-export type DropdownProps<T extends HTMLElement = HTMLDivElement> =
+export type DropdownProps<T extends HTMLElement = HTMLDetailsElement> =
   React.HTMLAttributes<T> &
     IComponentBaseProps & {
       item?: ReactNode
@@ -45,7 +44,7 @@ export const classesFn = ({
     })
   )
 
-const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
+const Dropdown = React.forwardRef<HTMLDetailsElement, DropdownProps>(
   (
     {
       children,
@@ -62,8 +61,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
     ref
   ): JSX.Element => {
     return (
-      <div
-        role="listbox"
+      <details
         {...props}
         ref={ref}
         data-theme={dataTheme}
@@ -75,22 +73,22 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
           hover,
           open,
         })}
+        open={open}
       >
         {item ? (
           <>
-            <label tabIndex={0}>{children}</label>
+            <summary>{children}</summary>
             <ul className="dropdown-content">{item}</ul>
           </>
         ) : (
           <>{children}</>
         )}
-      </div>
+      </details>
     )
   }
 )
 
 export default Object.assign(Dropdown, {
-  Details: DropdownDetails,
   Toggle: DropdownToggle,
   Menu: DropdownMenu,
   Item: DropdownItem,

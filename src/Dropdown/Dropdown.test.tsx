@@ -16,10 +16,35 @@ describe('Dropdown', () => {
       </Dropdown>
     )
 
-    expect(screen.getByRole('listbox')).toBeInTheDocument()
+    expect(screen.getByRole('group')).toBeInTheDocument()
     expect(screen.getByText('Toggle')).toBeInTheDocument()
-    expect(screen.getByRole('menu')).toBeInTheDocument()
-    expect(screen.getAllByRole('menuitem')).toHaveLength(3)
+    expect(screen.getByRole('list')).toBeInTheDocument()
+    expect(screen.getAllByRole('listitem')).toHaveLength(3)
+  })
+
+  test('Should follow daisyUI details/summary pattern', () => {
+    render(
+      <Dropdown>
+        <Dropdown.Toggle>Click</Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item>Item 1</Dropdown.Item>
+          <Dropdown.Item>Item 2</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+    )
+
+    // Should render as details element
+    const details = screen.getByRole('group')
+    expect(details.tagName).toBe('DETAILS')
+    expect(details).toHaveClass('dropdown')
+
+    // Should have summary element
+    const summary = details.querySelector('summary')
+    expect(summary).toBeInTheDocument()
+
+    // Should have dropdown-content class on the menu
+    const menu = screen.getByRole('list')
+    expect(menu).toHaveClass('dropdown-content')
   })
 
   test('Should apply additional class names', () => {
@@ -33,11 +58,12 @@ describe('Dropdown', () => {
       </Dropdown>
     )
 
-    expect(screen.getByRole('listbox')).toHaveClass('custom-dropdown')
+    expect(screen.getByRole('group')).toHaveClass('custom-dropdown')
     expect(screen.getByText('Toggle').parentElement).toHaveClass(
       'custom-toggle'
     )
-    expect(screen.getByRole('menu')).toHaveClass('custom-menu')
+    const lists = screen.getAllByRole('list')
+    expect(lists[0]).toHaveClass('custom-menu')
   })
 
   it('Should allow passing extra props', () => {
@@ -46,7 +72,7 @@ describe('Dropdown', () => {
   })
 
   it('Should forward the ref to the root element', () => {
-    const ref = React.createRef<HTMLDivElement>()
+    const ref = React.createRef<HTMLDetailsElement>()
     render(<Dropdown ref={ref} />)
     expect(ref.current).toBeInTheDocument()
   })
@@ -59,8 +85,8 @@ describe('Dropdown', () => {
       </Dropdown>
     )
 
-    expect(screen.getByRole('listbox')).toHaveClass('dropdown-left')
-    expect(screen.getByRole('listbox')).toHaveClass('dropdown-top')
+    expect(screen.getByRole('group')).toHaveClass('dropdown-left')
+    expect(screen.getByRole('group')).toHaveClass('dropdown-top')
   })
 
   test('Should apply end, hover, and open classes', () => {
@@ -71,8 +97,8 @@ describe('Dropdown', () => {
       </Dropdown>
     )
 
-    expect(screen.getByRole('listbox')).toHaveClass('dropdown-end')
-    expect(screen.getByRole('listbox')).toHaveClass('dropdown-hover')
-    expect(screen.getByRole('listbox')).toHaveClass('dropdown-open')
+    expect(screen.getByRole('group')).toHaveClass('dropdown-end')
+    expect(screen.getByRole('group')).toHaveClass('dropdown-hover')
+    expect(screen.getByRole('group')).toHaveClass('dropdown-open')
   })
 })

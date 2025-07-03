@@ -5,7 +5,7 @@ import { ComponentColor, ComponentSize, IComponentBaseProps } from '../types'
 import Button, { ButtonProps } from '../Button'
 
 export type DropdownToggleProps = Omit<
-  React.LabelHTMLAttributes<HTMLLabelElement>,
+  React.HTMLAttributes<HTMLElement>,
   'color'
 > &
   IComponentBaseProps & {
@@ -26,7 +26,7 @@ const DropdownToggle = ({
   ...props
 }: DropdownToggleProps) => {
   return (
-    <label tabIndex={0} className={className} {...props}>
+    <summary className={className} {...props}>
       {button ? (
         <Button
           type="button"
@@ -40,7 +40,7 @@ const DropdownToggle = ({
       ) : (
         children
       )}
-    </label>
+    </summary>
   )
 }
 

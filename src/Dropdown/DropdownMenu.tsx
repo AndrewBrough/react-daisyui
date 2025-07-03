@@ -15,15 +15,7 @@ const DropdownMenu = ({
     className
   )
 
-  return (
-    <ul
-      {...props}
-      tabIndex={0}
-      data-theme={dataTheme}
-      className={classes}
-      role="menu"
-    />
-  )
+  return <ul {...props} data-theme={dataTheme} className={classes} />
 }
 
 export default DropdownMenu

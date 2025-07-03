@@ -10,11 +10,7 @@ export type DropdownItemProps = Anchor | NoAnchor
 
 const DropdownItem = React.forwardRef<HTMLAnchorElement, DropdownItemProps>(
   ({ anchor = true, ...props }, ref) => {
-    return (
-      <li role="menuitem">
-        {anchor ? <a ref={ref} {...props}></a> : props.children}
-      </li>
-    )
+    return <li>{anchor ? <a ref={ref} {...props}></a> : props.children}</li>
   }
 )
 
